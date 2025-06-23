@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Webnesday - HTTP by Example</title>
+    <meta charset="utf-8">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        body {
+            font-family: 'Droid Serif';
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Yanone Kaffeesatz';
+            font-weight: normal;
+        }
+
+        .remark-code {
+            display: block;
+            padding: .5em;
+            overflow-x: auto;
+        }
+
+        .remark-code,
+        .remark-inline-code {
+            font-family: 'Ubuntu Mono';
+            border: 1px dashed #777;
+            background-color: #202020;
+            color: #00ff33;
+        }
+
+        .remark-slide-content {
+            background-color: black;
+            color: white;
+        }
+
+        .remark-slide-content a,
+        .remark-slide-content a:visited {
+            color: #00ff33;
+        }
+
+        .remark-slide-content h1,
+        .remark-slide-content h2,
+        .remark-slide-content h3 {
+            color: #00ff33;
+        }
+
+        .remark-slide-content li {
+            margin-bottom: 0.4em;
+        }
+
+        .remark-slide-content li>ul {
+            margin-top: 0.4em;
+        }
+
+        /* Two-column layout */
+        .left-column {
+            color: #777;
+            width: 20%;
+            height: 92%;
+            float: left;
+        }
+
+        .left-column h2:last-of-type,
+        .left-column h3:last-child {
+            color: #000;
+        }
+
+        .right-column {
+            width: 75%;
+            float: right;
+            padding-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="source">
+
+class: center, middle
+
+# HTTP by Example
+
+## HTTP/1, HTTP/2 and HTTP/3
+
+Webnesday 2025
+
+Roman Ehrbar
+
+???
+
+- Preparation
+
+- Questions to audience:
+  - Who would say he/she masters http in all versions?
+
+---
+
+# Agenda
+
+1. History
+2. Basic HTTP Server
+3. HTTP/1.1
+4. HTTP/2
+5. HTTP/3
+6. Future
+7. Summary
+
+---
+# History
+
+<img src="tbl_photo.jpg" style="width: 100%; height: auto" alt="Tim Berners-Lee in 1994 with his web browser." />
+
+???
+
+- Who is this? Tim Berners-Lee
+- He has less hairs, and the ones still there are gray.
+- Around 1994 with his own browser.
+
+---
+
+# History
+
+- Idea of Hypertext was born (universal library with interlinked documents).
+- Documents usually shipped on floppy disks.
+- TCP/IP was standardized.
+
+???
+
+Interesting backstory, but too much for this talk. It's a rabbit hole.
+---
+
+# Summary
+
+???
+
+- Questions to audience:
+  - Who still thinks there was nothing noteworthy in these slides? Challenge to do it better at next webnesday.
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+        var slideshow = remark.create();
+    </script>
+</body>
+
+</html>
