@@ -180,7 +180,7 @@ while true; do cat minimal.http | nc -l 8000 -q 1; done
 ???
 
 - Connection is handled by the transport layer, provided here with netcat.
-- The loop is reqired for repeated connections.
+- The loop is required for repeated connections.
 - When the HTTP version is omitted, it will not be rendered in firefox, but detected as HTTP/0.9.
 - This minimal example is not well formed, but most browser will accept this.
 
@@ -269,22 +269,39 @@ Vary: Cookie, Accept-Encoding
 - Content negotiation: language, encoding and type
 - `Host` header allows to host different domains from the same IP address.
 - More features have been omitted to keep it short.
-- Was stable for many years, but finaly split up to allow for the updated versions.
+- Was stable for many years, but finally split up to allow for the updated versions.
 
 ---
 
 # HTTP/2
 
-TODO: Add screenshot of debug tools/wireshark.
+<img src="http2_wireshark.png" style="width: 100%" />
 
 ???
 
-- Binary protocoll, not human readable anymore.
-- Multiplexing, reuse existing TCP-Connection for multiple ressources.
-- Compression of headers.
-- Headers will be reconstructed by the browser developer tools.
+- Binary protocol, not human readable anymore.
+  - This is why it is shown using wireshark.
+- Requires TLS in most modern browsers. Cleartext is in some cases possible.
+  - Hint on TLS-Frame
+- Requires upgrade header or prior knowledge (Application-Layer Protocol Negotiation inside TLS).
+- Use `export SSLKEYLOGFILE=/tmp/ssl_key.log` before starting a browser to decrypt the traffic.
+- Multiplexing, reuse existing TCP-Connection for multiple resources.
+  - Hint on multiple blocks, `NO 629`.
+- Compression of headers (HPACK).
+  - Static Tables: for example `:scheme` or `:method` (good compression, both use one byte each)
+  - Dynamic Tables: reuse previous headers
 - Saves budget for data transfer overhead.
-- Requires upgrade header or prior knowledge.
+
+---
+
+# HTTP/2
+
+<img src="http2_firefox.png" style="width: 100%" />
+
+???
+
+- Headers will be reconstructed by the browser developer tools.
+- Only indicator is `Version: HTTP/2`
 - Only update the server, no significant work for web developers. Disable compression, as HTTP/2 has own context-aware compression.
 - Standardized in 2015, peaked in 2021 with more than 49%.
 
@@ -292,12 +309,32 @@ TODO: Add screenshot of debug tools/wireshark.
 
 # HTTP/3
 
+<img src="http3_wireshark.png" style="width: 100%" />
+
 ???
 
+- Keep same semantics as previous versions of HTTP.
 - Uses _QUIC_ instead of TCP, running multiple streams over UDP with packet loss detection and retransmission.
-- Combines the handshake with TLS. Usually no unencrypted connections, which are hard to intercept.
+- Combines the handshake with TLS. Usually no unencrypted connections.
 - Falls back to HTTP/TCP if UDP is blocked or MTU is too small.
+- Reduces `Head-of-line-Blocking` usually seen in unstable networks.
+  - Requires lots of TCP retransmits.
+  - Improves experience for mobile users.
 - Took the lead over HTTP/2 just this year (April 2025).
+
+---
+
+# HTTP/3
+
+<img src="http3_firefox.png" style="width: 100%" />
+
+???
+
+- Not that different than previous version.
+- Only indicator is `Version: HTTP/3`
+- Header `Alt-Svc` indicates there are other protocols available and the browser is allowed to memorize it.
+  - Save some time on following connections.
+
 
 ---
 
