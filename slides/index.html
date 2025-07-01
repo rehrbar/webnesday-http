@@ -76,6 +76,18 @@
             float: right;
             padding-top: 1em;
         }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1em;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #333;
+        }
     </style>
 </head>
 
@@ -95,9 +107,13 @@ Roman Ehrbar
 ???
 
 - Preparation
+  - Open terminal in root for demo/questions.
 
 - Questions to audience:
   - Who would say he/she masters http in all versions?
+
+- The promise is to show the features on some examples, and not every detail.
+- The RFC are all available online and Mozilla Developer Network MDN has in depth articles.
 
 ---
 # History
@@ -161,7 +177,6 @@ Response:
 
 # Basic HTTP Server
 
---
 contents of `minimal.http`:
 
 ```http
@@ -169,6 +184,11 @@ HTTP/1.0 200 OK
 
 <h1>Hi Webnesday
 ```
+???
+- This will be the first building block, defining the response.
+- Notice the empty line, which is used to separate the metadata from the body.
+- This is true for requests and responses. Used for example in POST requests.
+- Technically, a GET request can also have a body, but it may lead to undefined behavior.
 --
 
 serving the file:
@@ -209,11 +229,11 @@ HTTP/1.0 200 OK
 Date: Tue, 15 Nov 1994 08:12:31 GMT
 Server: CERN/3.0 libwww/2.17
 Content-Type: text/html
+
 <HTML>
-A page with an image
+  A page with an image
   <IMG SRC="/my-image.gif">
 </HTML>
-
 ```
 
 
@@ -287,6 +307,7 @@ Vary: Cookie, Accept-Encoding
 - Use `export SSLKEYLOGFILE=/tmp/ssl_key.log` before starting a browser to decrypt the traffic.
 - Multiplexing, reuse existing TCP-Connection for multiple resources.
   - Hint on multiple blocks, `NO 629`.
+  - Previously used multiple TCP-Connections, usually limited to 6 per domain.
 - Compression of headers (HPACK).
   - Static Tables: for example `:scheme` or `:method` (good compression, both use one byte each)
   - Dynamic Tables: reuse previous headers
@@ -340,7 +361,18 @@ Vary: Cookie, Accept-Encoding
 
 # Summary
 
+| Feature | HTTP/1.1 | HTTP/2 | HTTP/3 |
+|-|-|-|-|
+|Protocol type|text based|binary|binary (QUIC)|
+|Connection|TCP|TCP|UDP|
+|Multiplexing|no|yes|yes|
+|TLS|optional|recommended|required|
+|Complexity|low|medium|high|
+|Goals|compatability|performance|mobility|
+
 ???
+- All versions share the common structure.
+- Can I use http/3: Baseline 2024, since September.
 
 - Questions to audience:
   - Who still thinks there was nothing noteworthy in these slides? Challenge to do it better at next webnesday.
@@ -351,6 +383,10 @@ Vary: Cookie, Accept-Encoding
 # Resources
 
 - https://developer.mozilla.org/en-US/docs/Web/HTTP
+- https://www.cloudflare.com/learning/performance/http2-vs-http1.1/
+- https://www.cloudflare.com/learning/performance/what-is-http3/
+- https://twobithistory.org/2018/06/10/birth-of-the-web.html
+- https://w3techs.com/technologies/history_overview/site_element/all/y
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
